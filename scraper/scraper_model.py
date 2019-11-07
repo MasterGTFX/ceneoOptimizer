@@ -1,7 +1,7 @@
 import requests
 import logging
 from bs4 import BeautifulSoup
-import json
+from table_offer_scraper import TableScraper
 
 
 class WebScraper:
@@ -27,29 +27,17 @@ class WebScraper:
         self.allOffers = self.get_all_offers()
 
     def get_all_offers(self):
-        recommended_table = self.productPage.find('table', attrs={'class': 'product-offers js_product-offers'})
-        recommended_products = recommended_table.find('tbody').find_all('tr', attrs={
-            'class': 'product-offer'})
-        others_table = self.productPage.find('table',
-                                             attrs={'class': 'product-offers js_product-offers js_normal-offers'})
-        others_products = others_table.find('tbody').find_all('tr', attrs={'class': 'product-offer'})
-        all_products = recommended_products + others_products
-        for product in all_products:
-            price = self.get_price_of_table_element(product)
-            print(price)
-        return all_products
+        recommended_offers = TableScraper.get_reccomended_offers_table(self.productPage)
+        other_offers = TableScraper.get_other_offers_table(self.productPage)
+        all_offers_description = TableScraper.get_offers_description_table(self.productPage)
+        all_offers = recommended_offers + other_offers
 
-    def get_price_of_table_element(self, product):
-        if product.has_attr('data-price'):
-            price = product['data-price']
-        else:
-            price_string = product.find('span', attrs={'class': "price"}).find(class_="value").text + product.find(
-                'span',
-                attrs={
-                    'class': "price"}).find(
-                class_="penny").text.replace(",", ".")
-            price = float(price_string)
-        return price
+        for index in range(len(all_offers)):
+            price = TableScraper.get_price_from_table_element(all_offers[index])
+            shop_name = TableScraper.get_seller_name_from_table_element(all_offers_description[index])
+            print(price, shop_name)
+
+        return all_offers
 
     def get_product_price(self):
         return self.productPrice
