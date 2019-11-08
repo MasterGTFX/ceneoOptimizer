@@ -24,19 +24,22 @@ class WebScraper:
         self.productPage = WebScraper.get_page(WebScraper.create_url(productName))
         self.productName = self.productPage.find(
             class_="product-name js_product-h1-link js_product-force-scroll js_searchInGoogleTooltip default-cursor").text
-        self.allOffers = self.get_all_offers()
+        self._allOffers = self.get_all_offers()
 
     def get_all_offers(self):
-        recommended_offers = TableScraper.get_reccomended_offers_table(self.productPage)
-        other_offers = TableScraper.get_other_offers_table(self.productPage)
-        all_offers_description = TableScraper.get_offers_description_table(self.productPage)
-        all_offers = recommended_offers + other_offers
-
-        for index in range(len(all_offers)):
-            price = TableScraper.get_price_from_table_element(all_offers[index])
-            shop_name = TableScraper.get_seller_name_from_table_element(all_offers_description[index])
-            print(price, shop_name)
-
+        recommended_offers_table = TableScraper.get_reccomended_offers_table(self.productPage)
+        other_offers_table = TableScraper.get_other_offers_table(self.productPage)
+        all_offers_description_table = TableScraper.get_offers_description_table(self.productPage)
+        all_offers_table = recommended_offers_table + other_offers_table
+        all_offers = []
+        if len(all_offers_table) != len(all_offers_description_table):
+            raise Exception(len(all_offers_description_table), "!=", len(all_offers_table))
+        for index in range(len(all_offers_table)):
+            price = TableScraper.get_price_from_table_element(all_offers_table[index])
+            shop_name = TableScraper.get_seller_name_from_table_description(all_offers_description_table[index])
+            reviews_number = TableScraper.get_reviews_number_from_table_element(all_offers_table[index])
+            rep = TableScraper.get_reputation_from_table_element(all_offers_table[index])
+            all_offers.append({"seller_name": shop_name, "price": price, "reviews_number": reviews_number, "rep": rep})
         return all_offers
 
     def get_product_price(self):
@@ -52,5 +55,7 @@ class WebScraper:
         return self.deliveryPrice
 
 
-page = WebScraper("iphone 10")
+page = WebScraper("nokia 7.2")
 print(page.get_product_name())
+for offer in page._allOffers:
+    print(offer)
