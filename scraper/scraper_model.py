@@ -1,10 +1,12 @@
 import requests
-import logging
 from bs4 import BeautifulSoup
-from table_offer_scraper import TableScraper
+from offer_scraper import TableScraper
+import pyshorteners
+from pyshorteners import Shorteners
 
 
 class WebScraper:
+    url_shortener = pyshorteners.Shortener(Shorteners.TINYURL)
 
     @staticmethod
     def create_url(productName):
@@ -23,10 +25,10 @@ class WebScraper:
     def __init__(self, productName):
         self.productPage = WebScraper.get_page(WebScraper.create_url(productName))
         self.productName = self.productPage.find(
-            class_="product-name js_product-h1-link js_product-force-scroll js_searchInGoogleTooltip default-cursor").text
-        self._allOffers = self.get_all_offers()
+            class_="product-name").text
+        self._allOffers = self._get_all_offers()
 
-    def get_all_offers(self):
+    def _get_all_offers(self):
         recommended_offers_table = TableScraper.get_reccomended_offers_table(self.productPage)
         other_offers_table = TableScraper.get_other_offers_table(self.productPage)
         all_offers_description_table = TableScraper.get_offers_description_table(self.productPage)
@@ -39,23 +41,28 @@ class WebScraper:
             shop_name = TableScraper.get_seller_name_from_table_description(all_offers_description_table[index])
             reviews_number = TableScraper.get_reviews_number_from_table_element(all_offers_table[index])
             rep = TableScraper.get_reputation_from_table_element(all_offers_table[index])
-            all_offers.append({"seller_name": shop_name, "price": price, "reviews_number": reviews_number, "rep": rep})
+            url = self.url_shortener.short(TableScraper.get_offer_url_from_table_element(all_offers_table[index]))
+            all_offers.append(
+                {"seller_name": shop_name, "price": price, "reviews_number": reviews_number, "rep": rep, "url": url})
         return all_offers
-
-    def get_product_price(self):
-        return self.productPrice
 
     def get_product_name(self):
         return self.productName
 
+    def get_all_offers(self):
+        return self._allOffers
+
+    def get_product_price(self):
+        return [{key: item[key] for key in ['seller_name', 'price']} for item in self._allOffers]
+
     def get_product_rep(self):
-        return self.productRep
+        return [{key: item[key] for key in ['seller_name', 'rep', 'reviews_number']} for item in self._allOffers]
 
     def get_delivery_price(self):
-        return self.deliveryPrice
+        pass
 
 
-page = WebScraper("nokia 7.2")
+page = WebScraper("lenovo t490")
 print(page.get_product_name())
-for offer in page._allOffers:
+for offer in page.get_all_offers():
     print(offer)

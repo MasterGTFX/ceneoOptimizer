@@ -1,5 +1,3 @@
-from bs4 import BeautifulSoup
-import logging
 from regex_patterns import RegexPatterns
 
 
@@ -51,3 +49,9 @@ class TableScraper:
         reputation_table = product.find('td', attrs={'class': "cell-store-review"})
         reputation = reputation_table.find('span', attrs={'class': 'screen-reader-text'}).text
         return float(RegexPatterns.reputation_regex.search(reputation).group(1).replace(",", "."))
+
+    @staticmethod
+    def get_offer_url_from_table_element(product):
+        url_table = product.find('td', attrs={'class': "cell-price"})
+        url = url_table.find('a', attrs={'class': 'product-price go-to-shop'})['href']
+        return "https://www.ceneo.pl/" + str(url)
