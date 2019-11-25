@@ -3,9 +3,10 @@ from bs4 import BeautifulSoup
 from offer_scraper import TableScraper
 import pyshorteners
 from pyshorteners import Shorteners
+from timer import timing
 
 
-class WebScraper:
+class CeneoScraper:
     url_shortener = pyshorteners.Shortener(Shorteners.TINYURL)
 
     @staticmethod
@@ -23,7 +24,7 @@ class WebScraper:
                              'html.parser')
 
     def __init__(self, productName):
-        self.productPage = WebScraper.get_page(WebScraper.create_url(productName))
+        self.productPage = CeneoScraper.get_page(CeneoScraper.create_url(productName))
         self.productName = self.productPage.find(
             class_="product-name").text
         self._allOffers = self._get_all_offers()
@@ -37,13 +38,17 @@ class WebScraper:
         if len(all_offers_table) != len(all_offers_description_table):
             raise Exception(len(all_offers_description_table), "!=", len(all_offers_table))
         for index in range(len(all_offers_table)):
-            price = TableScraper.get_price_from_table_element(all_offers_table[index])
+            price, delivery_price = TableScraper.get_price_from_table_element(all_offers_table[index])
             shop_name = TableScraper.get_seller_name_from_table_description(all_offers_description_table[index])
             reviews_number = TableScraper.get_reviews_number_from_table_element(all_offers_table[index])
             rep = TableScraper.get_reputation_from_table_element(all_offers_table[index])
-            url = self.url_shortener.short(TableScraper.get_offer_url_from_table_element(all_offers_table[index]))
+            try:
+                url = self.url_shortener.short(TableScraper.get_offer_url_from_table_element(all_offers_table[index]))
+            except requests.exceptions.ReadTimeout:
+                url = TableScraper.get_offer_url_from_table_element(all_offers_table[index])
             all_offers.append(
-                {"seller_name": shop_name, "price": price, "reviews_number": reviews_number, "rep": rep, "url": url})
+                {"seller_name": shop_name, "price": price, "deliver_price": delivery_price,
+                 "reviews_number": reviews_number, "rep": rep, "url": url})
         return all_offers
 
     def get_product_name(self):
@@ -62,7 +67,7 @@ class WebScraper:
         pass
 
 
-page = WebScraper("lenovo t490")
+page = CeneoScraper("nokia 7.2")
 print(page.get_product_name())
 for offer in page.get_all_offers():
     print(offer)

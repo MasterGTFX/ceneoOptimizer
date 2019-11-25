@@ -1,6 +1,7 @@
 from regex_patterns import RegexPatterns
 
 
+
 class TableScraper:
 
     @staticmethod
@@ -31,7 +32,18 @@ class TableScraper:
             attrs={
                 'class': "price"}).find(
             class_="penny").text.replace(",", ".")
-        return float(price_string)
+        price_table = product.find('td', attrs={'class': "cell-price"})
+        if price_table.find("span", attrs={'class': "free-delivery-txt"}):
+            delivery_price = 0.0
+        else:
+            delivery_price_text = price_table.find("div", attrs={'class': "product-delivery-info js_deliveryInfo"}).text
+            if RegexPatterns.deliver_price_regex.search(delivery_price_text):
+                total_price = RegexPatterns.deliver_price_regex.search(delivery_price_text).group().replace(",", ".")
+                delivery_price = float(total_price) - float(price_string)
+            else:
+                delivery_price = 0.0
+
+        return float(price_string), delivery_price
 
     @staticmethod
     def get_seller_name_from_table_description(product_description):
