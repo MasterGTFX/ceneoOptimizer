@@ -20,15 +20,7 @@ class CeneoScraper:
                     all_products_page.find_all(class_='go-to-product js_conv js_clickHash js_seoUrl')
                     if
                     "promotion" not in product['href']]
-        try:
-            product_page = BeautifulSoup(requests.get("https://www.ceneo.pl" + products[0]['href'] + ";0284-0").text,
-                                         'html.parser')
-            if product_page.find(class_="product-name"):
-                print("[INFO] Product page looking good")
-            else:
-                raise WrongPageException()
-            return product_page, products
-        except (IndexError, AttributeError, WrongPageException):
+        if len(products) < 1:
             print("[ERROR] No products found at " + url)
             if kwargs.get("retry") > 0:
                 print("[INFO] Retrying..")
@@ -36,17 +28,18 @@ class CeneoScraper:
                 print("[INFO] " + str(retries) + " attempts left")
                 return self.get_page(url, retry=retries)
             else:
-                return None, None
+                return None
+        return products
 
-    def __init__(self, productName, **kwargs):
-        self.OFFERS_NUMBER = kwargs.get('OFFERS_NUMBER') if kwargs.get('OFFERS_NUMBER') else 5
-        self.MIN_RATING = kwargs.get('MIN_RATING') if kwargs.get('MIN_RATING') else 4.0
-        self.REVIEWS_NUMBER = kwargs.get('REVIEWS_NUMBER') if kwargs.get('REVIEWS_NUMBER') else 20
-        self.productName = productName
-        self.productPage, self.products = self.get_page(CeneoScraper.create_url(productName), retry=self.RETRY_NUMBER)
-        if self.productPage:
-            self._allOffers = self._get_all_offers()
+    def __init__(self, product_name, OFFERS_NUMBER=5, MIN_RATING=4.0, MIN_REVIEWS=20):
+        self.OFFERS_NUMBER = OFFERS_NUMBER
+        self.MIN_RATING = MIN_RATING
+        self.MIN_REVIEWS = MIN_REVIEWS
+        self.productName = product_name
+        self.products = self.get_page(CeneoScraper.create_url(product_name), retry=self.RETRY_NUMBER)
+        if self.products:
             print("[INFO] Scraper for [" + self.productName + " ] initialized")
+            self._allOffers = self._get_all_offers()
         else:
             self.productName = ""
             self._allOffers = {}
@@ -68,14 +61,41 @@ class CeneoScraper:
                  "delivery_price": delivery_price,
                  "reviews_number": reviews_number, "rep": rep, "url": url})
             if len(all_offers) >= self.OFFERS_NUMBER:
-                print("[INFO] Max offers number reached")
                 break
-        print("[INFO] Total: " + str(len(all_offers)) + " offers saved")
+        print("[INFO] " + str(len(all_offers)) + " offers collected that meets requirements")
         return all_offers
 
+    def _get_offers_from_product(self, product, **kwargs):
+        try:
+            product_page = BeautifulSoup(requests.get("https://www.ceneo.pl" + product['href'] + ";0284-0").text,
+                                         'html.parser')
+            if not product_page.find(class_="product-name"):
+                raise WrongPageException()
+        except WrongPageException:
+            print("[ERROR] No offers found at " + "https://www.ceneo.pl" + product['href'])
+            if kwargs.get("retry") > 0:
+                print("[INFO] Retrying..")
+                retries = kwargs.get("retry") - 1
+                print("[INFO] " + str(retries) + " attempts left")
+                return self._get_offers_from_product(product, retry=retries)
+            else:
+                return None
+        return product_page
+
     def _get_tables(self):
-        all_offers_table = TableScraper.get_offers_table(self.productPage)
-        all_offers_description_table = TableScraper.get_offers_description_table(self.productPage)
+        all_offers_table = []
+        all_offers_description_table = []
+        for product in self.products:
+            product_page = self._get_offers_from_product(product, retry=self.RETRY_NUMBER)
+            if product_page:
+                product_offers_table, product_offers_description_table = TableScraper.get_offers_table(product_page,
+                                                                                                       self.MIN_RATING,
+                                                                                                       self.MIN_REVIEWS)
+                all_offers_table.extend(product_offers_table)
+                all_offers_description_table.extend(product_offers_description_table)
+            if len(all_offers_table) >= self.OFFERS_NUMBER:
+                print("[INFO] Max offers number reached")
+                break
         if len(all_offers_table) != len(all_offers_description_table):
             raise Exception(len(all_offers_description_table), "!=", len(all_offers_table))
         return all_offers_table, all_offers_description_table
@@ -96,8 +116,8 @@ class CeneoScraper:
         return [{key: item[key] for key in ['seller_name', 'delivery_price']} for item in self._allOffers]
 
 
-page = CeneoScraper("jaguar xf", OFFERS_NUMBER=5, MIN_RATING=4.0, REVIEWS_NUMBER=20)
+page = CeneoScraper("jaguar xf", OFFERS_NUMBER=5, MIN_RATING=0, MIN_REVIEWS=0)
 
-page2 = CeneoScraper("nokia 7.2", OFFERS_NUMBER=5, MIN_RATING=4.0, REVIEWS_NUMBER=20)
+page2 = CeneoScraper("nokia 7.2", OFFERS_NUMBER=5, MIN_RATING=4.0, MIN_REVIEWS=20)
 
-page3 = CeneoScraper("iphone 10", OFFERS_NUMBER=5, MIN_RATING=4.0, REVIEWS_NUMBER=20)
+page3 = CeneoScraper("iphone 10", OFFERS_NUMBER=5, MIN_RATING=4.0, MIN_REVIEWS=20)

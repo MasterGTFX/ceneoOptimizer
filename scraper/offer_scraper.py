@@ -4,20 +4,24 @@ from regex_patterns import RegexPatterns
 class TableScraper:
 
     @staticmethod
-    def get_offers_table(productPage):
-        print("[INFO] Searching for offers")
-        others_table = productPage.find('table',
-                                        attrs={'class': 'product-offers js_product-offers js_normal-offers'})
-        others_products = others_table.find('tbody').find_all('tr', attrs={'class': 'product-offer'})
-        print("[INFO] " + str(len(others_products)) + " offers found")
-        return others_products
-
-    @staticmethod
-    def get_offers_description_table(productPage):
-        all_products_description = productPage.find_all("tr", attrs={'class': 'details-row js_product-offer'}) + \
-                                   productPage.find_all("tr", attrs={
+    def get_offers_table(product_page, min_rating, min_reviews):
+        offers_table = product_page.find('table',
+                                         attrs={'class': 'product-offers js_product-offers js_normal-offers'})
+        offers_table_products = offers_table.find('tbody').find_all('tr', attrs={'class': 'product-offer'})
+        offers_table_description = product_page.find_all("tr", attrs={'class': 'details-row js_product-offer'}) + \
+                                   product_page.find_all("tr", attrs={
                                        'class': 'details-row js_appendRemainingAfter js_product-offer'})
-        return all_products_description
+        offers_metting_requirements = []
+        offers_description_metting_requirements = []
+        for index in range(len(offers_table_products)):
+            if TableScraper.get_reviews_number_from_table_element(offers_table_products[index]) \
+                    >= min_reviews \
+                    and TableScraper.get_reputation_from_table_element(offers_table_products[index]) \
+                    >= min_rating:
+                offers_metting_requirements.append(offers_table_products[index])
+                offers_description_metting_requirements.append(offers_table_description[index])
+        print("[INFO] " + str(len(offers_metting_requirements)) + " offers found at " + product_page.title.string)
+        return offers_metting_requirements, offers_description_metting_requirements
 
     @staticmethod
     def get_price_from_table_element(product):
