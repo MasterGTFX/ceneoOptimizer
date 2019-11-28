@@ -6,16 +6,24 @@ class TableScraper:
 
     @staticmethod
     def get_reccomended_offers_table(productPage):
+        print("[INFO] Searching for recommended offers")
         recommended_table = productPage.find('table', attrs={'class': 'product-offers js_product-offers'})
-        recommended_products = recommended_table.find('tbody').find_all('tr', attrs={
+        try:
+            recommended_products = recommended_table.find('tbody').find_all('tr', attrs={
             'class': 'product-offer'})
+            print("[INFO] " + str(len(recommended_products)) + " recommended offers found")
+        except AttributeError:
+            recommended_products = []
+            print("[INFO] No recommended offers")
         return recommended_products
 
     @staticmethod
     def get_other_offers_table(productPage):
+        print("[INFO] Searching for other offers")
         others_table = productPage.find('table',
                                         attrs={'class': 'product-offers js_product-offers js_normal-offers'})
         others_products = others_table.find('tbody').find_all('tr', attrs={'class': 'product-offer'})
+        print("[INFO] " + str(len(others_products)) + " normal offers found")
         return others_products
 
     @staticmethod
@@ -42,7 +50,6 @@ class TableScraper:
                 delivery_price = float(total_price) - float(price_string)
             else:
                 delivery_price = 0.0
-
         return float(price_string), delivery_price
 
     @staticmethod
