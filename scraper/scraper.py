@@ -13,7 +13,7 @@ class CeneoScraper:
     @staticmethod
     def create_url(productName):
         """
-        :param productName:         Product to be searched
+        :param str productName:         Product to be searched
         :return:                    Url for ceneo search to a given product
         """
         return "https://www.ceneo.pl/szukaj-" + productName
@@ -21,7 +21,7 @@ class CeneoScraper:
     def get_products(self, url, **kwargs):
         """
 
-        :param url:     Link to search result page for given product name
+        :param str url:     Link to search result page for given product name
         :return:        List containing products href
         """
         all_products_page = BeautifulSoup(requests.get(url).text, 'html.parser')
@@ -40,18 +40,18 @@ class CeneoScraper:
                 return None
         return products
 
-    def __init__(self, product_name, OFFERS_NUMBER=5, MIN_RATING=4.0, MIN_REVIEWS=20):
+    def __init__(self, product_name, offers_number=5, min_rating=4.0, min_reviews=20):
         """
         CeneoScraper object containing offers for given product name that meets requirements(min rating and reviews count)
 
-        :param product_name:        Product name
-        :param OFFERS_NUMBER:       Number of maximum product offers that meet requirements
-        :param MIN_RATING:          Number of minimum product rating
-        :param MIN_REVIEWS:         Number of minimum reviews count
+        :param str product_name:        Product name
+        :param int offers_number:       Number of maximum product offers that meet requirements
+        :param float min_rating:          Number of minimum product rating
+        :param int min_reviews:         Number of minimum reviews count
         """
-        self.OFFERS_NUMBER = OFFERS_NUMBER
-        self.MIN_RATING = MIN_RATING
-        self.MIN_REVIEWS = MIN_REVIEWS
+        self.OFFERS_NUMBER = offers_number
+        self.MIN_RATING = min_rating
+        self.MIN_REVIEWS = min_reviews
         self.productName = product_name
         self.products = self.get_products(CeneoScraper.create_url(product_name), retry=self.RETRY_NUMBER)
         if self.products:
@@ -93,9 +93,9 @@ class CeneoScraper:
         This function is loading given offer site (from product list). When its failed to load site it retries to a given
         RETRY_NUMBER times.
 
-        :param product:         List containing offers url from product search
-        :param kwargs:          RETRY_NUMBER
-        :return:                Given offer page (soup)
+        :param list product:         List containing offers url from product search
+        :param kwargs:               RETRY_NUMBER
+        :return:                     Given offer page (soup)
         """
         try:
             product_page = BeautifulSoup(requests.get("https://www.ceneo.pl" + product['href'] + ";0284-0").text,
@@ -151,8 +151,9 @@ class CeneoScraper:
         return [{key: item[key] for key in ['seller_name', 'delivery_price']} for item in self._allOffers]
 
 
-page = CeneoScraper("jaguar xf", OFFERS_NUMBER=5, MIN_RATING=0, MIN_REVIEWS=0)
+page = CeneoScraper("jaguar xf", offers_number=5, min_rating=0, min_reviews=0)
+page = CeneoScraper("jaguar xf", offers_number=5, min_rating=0, min_reviews=0)
 
-page2 = CeneoScraper("nokia 7.2", OFFERS_NUMBER=5, MIN_RATING=4.0, MIN_REVIEWS=20)
+page2 = CeneoScraper("nokia 7.2", offers_number=5, min_rating=4.0, min_reviews=20)
 
-page3 = CeneoScraper("iphone 10", OFFERS_NUMBER=5, MIN_RATING=4.0, MIN_REVIEWS=20)
+page3 = CeneoScraper("iphone 10", offers_number=5, min_rating=4.0, min_reviews=20)
