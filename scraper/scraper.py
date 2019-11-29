@@ -14,7 +14,7 @@ class CeneoScraper:
     def create_url(productName):
         """
         :param str productName:         Product to be searched
-        :return:                    Url for ceneo search to a given product
+        :return:                        Url for ceneo search to a given product
         """
         return "https://www.ceneo.pl/szukaj-" + productName
 
@@ -22,7 +22,7 @@ class CeneoScraper:
         """
 
         :param str url:     Link to search result page for given product name
-        :return:        List containing products href
+        :return:            List containing products href
         """
         all_products_page = BeautifulSoup(requests.get(url).text, 'html.parser')
         products = [product for product in
@@ -46,7 +46,7 @@ class CeneoScraper:
 
         :param str product_name:        Product name
         :param int offers_number:       Number of maximum product offers that meet requirements
-        :param float min_rating:          Number of minimum product rating
+        :param float min_rating:        Number of minimum product rating
         :param int min_reviews:         Number of minimum reviews count
         """
         self.OFFERS_NUMBER = offers_number
