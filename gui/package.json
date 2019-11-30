@@ -1,0 +1,16 @@
+{
+  "name": "python-scraper",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Żuber, Baran, Szałwiński",
+  "devDependencies": {
+    "electron": "^7.1.2"
+  },
+  "dependencies": {
+    "python-shell": "^1.0.8"
+  }
+}
