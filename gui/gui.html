@@ -11,15 +11,24 @@
             <h1>Ceneo Optimizer</h1>
             <p>Project by: Jakub Żuber, Dominik Baran, Filip Szałwiński</p>
         </div>
-    
-        <input id="city" type="text" placeholder="feature">
-        <input id="city1" type="text" placeholder="another feature">
-
-        <br>
+        
+        <div>
+            <input id="product_name" type="text" placeholder="product_name">
+            <input id="max_cena" type="text" placeholder="cena maksymalna">
+            <input id="min_cena" type="text" placeholder="cena minimalna">
+            <input id="min_rating" type="text" placeholder="rating minimalny">
+            <input id="min_reviews" type="text" placeholder="minimalna liczba recenzji">
+            <input id="num_offers" type="text" placeholder="liczba ofert">
+            <input id="num_product" type="text" placeholder="liczba produktów">
+            
+        </div>
+        
         <button type="button" onclick="get_weather()">Search</button>
+        <button type="button" onclick="add_next_item()">Add item</button>
         <br>
         <div class="container" style="overflow-x:hidden;">
-            <table align = "center" id="table" border="4" class="table table-dark" width=10% ></table>
+            <table align = "center" id="table" border="4" class="table table-dark" width=10% >
+            </table>
         </div>
     </div>
    
