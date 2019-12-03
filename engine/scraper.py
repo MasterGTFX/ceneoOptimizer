@@ -1,6 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 from offer_scraper import TableScraper
+import logging
+
+logging.basicConfig(level=logging.DEBUG, filename='logs/app.log', filemode='w',
+                    format='%(name)s - %(levelname)s - %(asctime)s %(message)s')
+logger = logging.getLogger(__name__)
 
 
 class WrongPageException(BaseException):
@@ -11,12 +16,12 @@ class CeneoScraper:
     RETRY_NUMBER = 5
 
     @staticmethod
-    def create_url(productName):
+    def create_url(product_name, min_price, max_price):
         """
-        :param str productName:         Product to be searched
+        :param str product_name:         Product to be searched
         :return:                        Url for ceneo search to a given product
         """
-        return "https://www.ceneo.pl/szukaj-" + productName
+        return "https://www.ceneo.pl/szukaj-" + product_name + ";m" + str(min_price) + ";n" + str(max_price) + ";0112-0"
 
     def get_products(self, url, **kwargs):
         """
@@ -30,17 +35,17 @@ class CeneoScraper:
                     if
                     "promotion" not in product['href']]
         if len(products) < 1:
-            print("[ERROR] No products found at " + url)
+            logger.error("No products found at " + url)
             if kwargs.get("retry") > 0:
-                print("[INFO] Retrying..")
+                logger.info('Retrying..')
                 retries = kwargs.get("retry") - 1
-                print("[INFO] " + str(retries) + " attempts left")
+                logger.info(str(retries) + " attempts left")
                 return self.get_products(url, retry=retries)
             else:
                 return None
         return products
 
-    def __init__(self, product_name, offers_number=5, min_rating=4.0, min_reviews=20):
+    def __init__(self, product_name, offers_number=5, min_rating=4.0, min_reviews=20, min_price=0, max_price=999999):
         """
         CeneoScraper object containing offers for given product name that meets requirements(min rating and reviews count)
 
@@ -53,14 +58,15 @@ class CeneoScraper:
         self.MIN_RATING = min_rating
         self.MIN_REVIEWS = min_reviews
         self.productName = product_name
-        self.products = self.get_products(CeneoScraper.create_url(product_name), retry=self.RETRY_NUMBER)
+        self.products = self.get_products(CeneoScraper.create_url(product_name, min_price, max_price),
+                                          retry=self.RETRY_NUMBER)
         if self.products:
-            print("[INFO] Scraper for [" + self.productName + " ] initialized")
+            logger.info("Scraper for [" + self.productName + " ] initialized")
             self._allOffers = self._get_all_offers()
         else:
             self.productName = ""
             self._allOffers = {}
-            print("[INFO] Scraper not initialized")
+            logger.info("Scraper not initialized")
 
     def _get_all_offers(self):
         """
@@ -69,7 +75,7 @@ class CeneoScraper:
         :return:        List of dictionaries containing offer. It cointains product name, seller name, price,
                         delivery price, reviews number, reputation and url to a given item.
         """
-        print("[INFO] Getting all offers..")
+        logger.info("Getting all offers..")
         all_offers_table, all_offers_description_table = self._get_tables()
         all_offers = []
         for index in range(len(all_offers_table)):
@@ -85,7 +91,7 @@ class CeneoScraper:
                  "reviews_number": reviews_number, "rep": rep, "url": url})
             if len(all_offers) >= self.OFFERS_NUMBER:
                 break
-        print("[INFO] " + str(len(all_offers)) + " offers collected that meets requirements")
+        logger.info(str(len(all_offers)) + " offers collected that meets requirements")
         return all_offers
 
     def _get_offers_from_product(self, product, **kwargs):
@@ -103,11 +109,11 @@ class CeneoScraper:
             if not product_page.find(class_="product-name"):
                 raise WrongPageException()
         except WrongPageException:
-            print("[ERROR] No offers found at " + "https://www.ceneo.pl" + product['href'])
+            logger.error("No offers found at " + "https://www.ceneo.pl" + product['href'])
             if kwargs.get("retry") > 0:
-                print("[INFO] Retrying..")
+                logger.info("Retrying..")
                 retries = kwargs.get("retry") - 1
-                print("[INFO] " + str(retries) + " attempts left")
+                logger.info(str(retries) + " attempts left")
                 return self._get_offers_from_product(product, retry=retries)
             else:
                 return None
@@ -129,7 +135,7 @@ class CeneoScraper:
                 all_offers_table.extend(product_offers_table)
                 all_offers_description_table.extend(product_offers_description_table)
             if len(all_offers_table) >= self.OFFERS_NUMBER:
-                print("[INFO] Max offers number reached")
+                logger.info("Max offers number reached")
                 break
         if len(all_offers_table) != len(all_offers_description_table):
             raise Exception(len(all_offers_description_table), "!=", len(all_offers_table))
@@ -151,9 +157,8 @@ class CeneoScraper:
         return [{key: item[key] for key in ['seller_name', 'delivery_price']} for item in self._allOffers]
 
 
-page = CeneoScraper("jaguar xf", offers_number=5, min_rating=0, min_reviews=0)
-page = CeneoScraper("jaguar xf", offers_number=5, min_rating=0, min_reviews=0)
+page = CeneoScraper("jaguar xf", offers_number=5, min_rating=0, min_reviews=0, min_price=10000)
 
-page2 = CeneoScraper("nokia 7.2", offers_number=5, min_rating=4.0, min_reviews=20)
+page2 = CeneoScraper("nokia 7.2", offers_number=5, min_rating=4.0, min_reviews=20, min_price=1000)
 
-page3 = CeneoScraper("iphone 10", offers_number=5, min_rating=4.0, min_reviews=20)
+page3 = CeneoScraper("iphone 10", offers_number=5, min_rating=4.0, min_reviews=20, min_price=2000)
