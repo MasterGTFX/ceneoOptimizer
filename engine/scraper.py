@@ -21,7 +21,7 @@ class CeneoScraper:
         :param str product_name:         Product to be searched
         :return:                        Url for ceneo search to a given product
         """
-        return "https://www.ceneo.pl/szukaj-" + product_name + ";m" + str(min_price) + ";n" + str(max_price) + ";0112-0"
+        return "https://www.ceneo.pl/szukaj-" + product_name + ";m" + str(min_price) + ";n" + str(max_price) #+ ";0112-0"
 
     def get_products(self, url, **kwargs):
         """
@@ -159,6 +159,6 @@ class CeneoScraper:
 
 page = CeneoScraper("jaguar xf", offers_number=5, min_rating=0, min_reviews=0, min_price=10000)
 
-page2 = CeneoScraper("nokia 7.2", offers_number=5, min_rating=4.0, min_reviews=20, min_price=1000, max_price=10000)
+#page2 = CeneoScraper("nokia 7.2", offers_number=5, min_rating=4.0, min_reviews=20, min_price=1000, max_price=10000)
 
-page3 = CeneoScraper("iphone 10", offers_number=5, min_rating=4.0, min_reviews=20, min_price=2000)
+#page3 = CeneoScraper("iphone 10", offers_number=5, min_rating=4.0, min_reviews=20, min_price=2000)
