@@ -36,7 +36,7 @@ class TableScraper:
                 'class': "price"}).find(
             class_="penny").text.replace(",", ".")
         price_table = product.find('td', attrs={'class': "cell-price"})
-        if price_table.find("span", attrs={'class': "free-delivery-txt"}):
+        if price_table.find("span", attrs={'class': "free-delivery-txt"}) or price_table.find("span", attrs={'class': "free-shipping-day"}):
             delivery_price = 0.0
         else:
             delivery_price_text = price_table.find("div", attrs={'class': "product-delivery-info js_deliveryInfo"}).text

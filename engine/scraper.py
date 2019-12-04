@@ -159,6 +159,6 @@ class CeneoScraper:
 
 page = CeneoScraper("jaguar xf", offers_number=5, min_rating=0, min_reviews=0, min_price=10000)
 
-page2 = CeneoScraper("nokia 7.2", offers_number=5, min_rating=4.0, min_reviews=20, min_price=1000)
+page2 = CeneoScraper("nokia 7.2", offers_number=5, min_rating=4.0, min_reviews=20, min_price=1000, max_price=10000)
 
 page3 = CeneoScraper("iphone 10", offers_number=5, min_rating=4.0, min_reviews=20, min_price=2000)
