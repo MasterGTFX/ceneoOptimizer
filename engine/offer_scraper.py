@@ -1,4 +1,9 @@
 from regex_patterns import RegexPatterns
+import logging
+
+logging.basicConfig(level=logging.DEBUG, filename='logs/app.log', filemode='w',
+                    format='%(name)s - %(levelname)s - %(asctime)s %(message)s')
+logger = logging.getLogger(__name__)
 
 
 class TableScraper:
@@ -20,7 +25,7 @@ class TableScraper:
                     >= min_rating:
                 offers_metting_requirements.append(offers_table_products[index])
                 offers_description_metting_requirements.append(offers_table_description[index])
-        print("[INFO] " + str(len(offers_metting_requirements)) + " offers found at " + product_page.title.string)
+        logger.info(str(len(offers_metting_requirements)) + " offers found at " + product_page.title.string)
         return offers_metting_requirements, offers_description_metting_requirements
 
     @staticmethod
@@ -31,7 +36,7 @@ class TableScraper:
                 'class': "price"}).find(
             class_="penny").text.replace(",", ".")
         price_table = product.find('td', attrs={'class': "cell-price"})
-        if price_table.find("span", attrs={'class': "free-delivery-txt"}):
+        if price_table.find("span", attrs={'class': "free-delivery-txt"}) or price_table.find("span", attrs={'class': "free-shipping-day"}):
             delivery_price = 0.0
         else:
             delivery_price_text = price_table.find("div", attrs={'class': "product-delivery-info js_deliveryInfo"}).text
