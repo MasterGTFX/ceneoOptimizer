@@ -1,0 +1,34 @@
+{
+  "item_0": {
+    "Product name": "pierwsz",
+    "max_cena": "",
+    "min_cena": "31",
+    "min_rating": "132",
+    "min_reviews": "123",
+    "num_offers": "123"
+  },
+  "item_1": {
+    "Product name": "pierwsz",
+    "max_cena": "",
+    "min_cena": "31",
+    "min_rating": "132",
+    "min_reviews": "123",
+    "num_offers": "123"
+  },
+  "item_2": {
+    "Product name": "das",
+    "max_cena": "",
+    "min_cena": "31",
+    "min_rating": "132",
+    "min_reviews": "123",
+    "num_offers": "123"
+  },
+  "item_3": {
+    "Product name": "",
+    "max_cena": "",
+    "min_cena": "31",
+    "min_rating": "132",
+    "min_reviews": "123",
+    "num_offers": "123"
+  }
+}

@@ -1,7 +1,7 @@
 from regex_patterns import RegexPatterns
 import logging
 
-logging.basicConfig(level=logging.DEBUG, filename='logs/app.log', filemode='w',
+logging.basicConfig(level=logging.DEBUG, filename='../engine/logs/app.log', filemode='w',
                     format='%(name)s - %(levelname)s - %(asctime)s %(message)s')
 logger = logging.getLogger(__name__)
 

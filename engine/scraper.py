@@ -2,8 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 from offer_scraper import TableScraper
 import logging
+from best_offers import get_best_offers
+import sys
+import json
 
-logging.basicConfig(level=logging.DEBUG, filename='logs/app.log', filemode='w',
+logging.basicConfig(level=logging.DEBUG, filename='../engine/logs/app.log', filemode='w',
                     format='%(name)s - %(levelname)s - %(asctime)s %(message)s')
 logger = logging.getLogger(__name__)
 
@@ -157,8 +160,35 @@ class CeneoScraper:
         return [{key: item[key] for key in ['seller_name', 'delivery_price']} for item in self._allOffers]
 
 
-page = CeneoScraper("jaguar xf", offers_number=5, min_rating=0, min_reviews=0, min_price=10000)
 
-#page2 = CeneoScraper("nokia 7.2", offers_number=5, min_rating=4.0, min_reviews=20, min_price=1000, max_price=10000)
 
-#page3 = CeneoScraper("iphone 10", offers_number=5, min_rating=4.0, min_reviews=20, min_price=2000)
+data = json.loads(sys.argv[1])
+
+products_params = []
+lista_ofert = []
+
+
+for i in data:
+    for j in data[i]:
+        if(j=="Product name"):
+            products_params.append(data[i][j])
+        elif(j=="Max price"):
+            products_params.append(float(data[i][j]))
+        elif(j=="Min price"):
+            products_params.append(float(data[i][j]))
+        elif(j=="Min rating"):
+            products_params.append(float(data[i][j]))
+        elif(j=="Min reviews"):
+            products_params.append(float(data[i][j]))
+        elif(j=="Num offers"):
+            products_params.append(float(data[i][j]))
+        elif(j=="Num offers"):
+            products_params.append(float(data[i][j]))
+    oferty = CeneoScraper(products_params[0], products_params[5], products_params[3], products_params[4], products_params[2]).get_all_offers()
+    lista_ofert.append(oferty)
+    products_params = []
+
+offe = get_best_offers(lista_ofert)
+y = json.dumps(offe)
+print(y)
+sys.stdout.flush()

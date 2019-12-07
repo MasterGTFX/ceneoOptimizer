@@ -1,18 +1,3 @@
-from scraper import CeneoScraper
-
-item1 = CeneoScraper("iphone xs", offers_number=5, min_rating=0, min_reviews=0, min_price=3000)
-item2 = CeneoScraper("młotek", offers_number=5, min_rating=0, min_reviews=0, min_price=10)
-item3 = CeneoScraper("powerbank", offers_number=5, min_rating=0, min_reviews=0, min_price=100)
-item4 = CeneoScraper("nokia", offers_number=5, min_rating=0, min_reviews=0, min_price=1000)
-item5 = CeneoScraper("piekarnik", offers_number=5, min_rating=0, min_reviews=0, min_price=500)
-prod1 = item1.get_all_offers()
-prod2 = item2.get_all_offers()
-prod3 = item3.get_all_offers()
-prod4 = item4.get_all_offers()
-prod5 = item5.get_all_offers()
-
-lista=[prod1, prod2, prod3, prod4, prod5]
-
 def get_best_offers(offers_list):
 
     first_set = []
@@ -56,5 +41,3 @@ def get_best_offers(offers_list):
 
     best_offers = [first_set, first_set_price, second_set, second_set_price, third_set, third_set_price]
     return best_offers
-
-print(get_best_offers(lista))
