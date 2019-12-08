@@ -1,43 +1,92 @@
 <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="styles.css">
-        <script src="linkers/weather.js"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
-
-        
 </head>
 
 <body>
-    <div>
+    <div class="container">
         <div class="jumbotron text-center">
             <h1>Ceneo Optimizer</h1>
             <p>Project by: Jakub Żuber, Dominik Baran, Filip Szałwiński</p>
         </div>
         
         <div id="searcher">
-            <input id="product_name" type="text" placeholder="product_name">
-            <input id="max_cena" type="text" placeholder="cena maksymalna">
-            <input id="min_cena" type="text" placeholder="cena minimalna">
-            <input id="min_rating" type="text" placeholder="rating minimalny">
-            <input id="min_reviews" type="text" placeholder="minimalna liczba recenzji">
-            <input id="num_offers" type="text" placeholder="liczba ofert">
-            <input id="num_products" type="text" placeholder="liczba produktów">
-       
+            <h2>Form Validation</h2>
+            <p>Fill blank spots and start searching your products</p>
+            
+            
+            <form action="/action_page.php" class="was-validated">
+            <div class="form-group">
+                <label for="product_name">Product name:</label>
+                <input id="product_name" class="form-control" type="text" placeholder="Enter product name" required>
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            
+            
+            
+            
+            <div class="form-group">
+                <label for="max_cena">Maximum price:</label>
+                    <input id="max_cena" class="form-control" type="number" placeholder="Enter product max price" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+            
+            <div class="form-group">
+                <label for="min_cena">Minimum price:</label>
+                <input id="min_cena" class="form-control" type="number" placeholder="Enter minimum price" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+            <div class="form-group">
+                <label for="min_rating">Minimum rating:</label>
+                <input id="min_rating" class="form-control" type="number" placeholder="Enter minimum rating number" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+            <div class="form-group">
+                <label for="min_reviews">Minimum reviews:</label>
+                <input id="min_reviews" class="form-control" type="number" placeholder="Enter minimum reviews number" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+            <div class="form-group">
+                <label for="num_offers">Number of offers:</label>
+                <input id="num_offers" class="form-control" type="number" placeholder="Enter number of offers" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+            <div class="form-group">
+                <label for="num_products">Number of products:</label>
+                <input id="num_products" class="form-control" type="number" min="1" max="5" placeholder="Enter number of products" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field with valid number.</div>
+                    </div>
+            
+            
+            
+            
+            
+            
+            </form>
+            <br>
+
         </div>
         
-        <div id="chart">
-            <div>
-            </div>
+        <div id="chart" class="container">
         </div>
         
     
         
         
-        
-        <button type="button" onclick="use_scraper()">Search</button>
-        <button type="button" onclick="addToChart()">Add to Chart</button>
-        <button type="button" onclick="dropTable()">dropTable</button>
+        <div id="buttons" class="container">
+            <button class="btn btn-dark" type="button" onclick="use_scraper()">Search</button>
+            <button class="btn btn-dark" type="button" onclick="addToChart()">Add to Chart</button>
+            <button class="btn btn-dark" type="button" onclick="dropTable()">dropTable</button>
+        </div>
         <br>
+        
         <div class="container" style="overflow-x:auto;" id="kontener_tabel">
         </div>
     </div>
@@ -46,8 +95,12 @@
    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 
    
+    <!-- Loading jQuery from npm module, so error doesn't show-->
+    <script> window.jQuery = window.$ = require('jquery'); </script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
+    <script src="linkers/weather.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
 
 </body>

@@ -164,7 +164,7 @@ function addToChart(){
     
     //create chart if there is no any
     chart = document.getElementById('chart');
-    if(chart.children.length == 1){
+    if(chart.children.length == 0){
         chart.appendChild(document.createElement('table'));
         chart.lastChild.setAttribute('id', 'chart_table');
         
