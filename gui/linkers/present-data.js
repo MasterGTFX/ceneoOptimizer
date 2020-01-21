@@ -11,19 +11,21 @@ const console_out = (param) => {
 
 const show_results = (param) => {
     //Drop previous table and start building new one
-    //dropTable('table');
-    //dropTable('chart_table');
+    dropTable('dataDiv');
+    dropTable('chart');
     
     var jason_bourne = JSON.parse(param);
-
     var sets_num = jason_bourne.length;
     var items_num = jason_bourne[0].length;
-    var knt_tabel = document.getElementById('kontener_tabel');
+    
+    var knt_tabel = document.getElementById('dataDiv');
     
     for(var j=0; j<sets_num; j+=2) {
         
         //create table
         var tbl = document.createElement('table');
+        tbl.setAttribute('id', 'data_table');
+
         //table header
         var row = tbl.insertRow(0);
         var cell0 = row.insertCell(0);
@@ -99,14 +101,18 @@ const show_results = (param) => {
         knt_tabel.appendChild(document.createElement('br'));
         knt_tabel.appendChild(tbl);
     }
+
 }
 
-const dropTable = (table_id) => {
-    var len = document.getElementById(table_id).rows.length;
-    for (var i=0; i < len; i++) {
-        document.getElementById(table_id).deleteRow(0);
+const dropTable = (parentID) => {
+    try {
+        const parent = document.getElementById(parentID);
+        while (parent.firstChild) {
+            parent.firstChild.remove();
+        }
+    } catch (error) {
+        console.log(error)
     }
-    
 }
 
 const scrollFunction = () => {
@@ -127,6 +133,7 @@ const addToChart = () => {
     
     //create chart if there is no any
     chart = document.getElementById('chart');
+    console.log(chart.children.length);
     if(chart.children.length == 0){
         chart.appendChild(document.createElement('table'));
         chart.lastChild.setAttribute('id', 'chart_table');
@@ -182,7 +189,7 @@ const addToChart = () => {
         td.innerHTML = item_params[i];
         tr.appendChild(td);
     }
-    
+
     //append row filled with item parameters to chart_table
     document.getElementById('chart_table').appendChild(tr);
 }

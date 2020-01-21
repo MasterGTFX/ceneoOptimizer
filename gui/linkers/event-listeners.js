@@ -7,12 +7,12 @@ addToChartBtn.onclick = addToChart;
 const dropTableBtn = document.getElementById('dropTable-btn');
 dropTableBtn.onclick = () => {
     try {
-        dropTable('table');
+        dropTable('dataDiv');
     } catch (error) {
         console.log(error)
     }
     try {
-        dropTable('chart_table');
+        dropTable('chart');
     } catch (error) {
         console.log(error)
     }
