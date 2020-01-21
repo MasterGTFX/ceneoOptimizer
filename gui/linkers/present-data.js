@@ -1,5 +1,5 @@
 //function for debug purposes
-function console_out(param) {
+const console_out = (param) => {
     var jason_bourne = JSON.parse(param);
     //var len = jason_bourne.length;
     //var table = document.getElementById('table');
@@ -9,9 +9,10 @@ function console_out(param) {
 
 }
 
-function show_results(param) {
+const show_results = (param) => {
     //Drop previous table and start building new one
-    //dropTable();
+    //dropTable('table');
+    //dropTable('chart_table');
     
     var jason_bourne = JSON.parse(param);
 
@@ -100,35 +101,29 @@ function show_results(param) {
     }
 }
 
-function dropTable() {
-    var len = document.getElementById('table').rows.length;
+const dropTable = (table_id) => {
+    var len = document.getElementById(table_id).rows.length;
     for (var i=0; i < len; i++) {
-        document.getElementById('table').deleteRow(0);
+        document.getElementById(table_id).deleteRow(0);
     }
     
 }
 
-//Button that scrolls up
-//Get the button
-var mybutton = document.getElementById('myBtn');
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
+const scrollFunction = () => {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        myBtn.style.display = 'block';
+        scrollButton.style.display = 'block';
     } else {
-        myBtn.style.display = 'none';
+        scrollButton.style.display = 'none';
     }
 }
 
 // When the user clicks on the button, scroll to the top of the document
-function topFunction() {
+topFunction = () => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 }
 
-function addToChart(){
+const addToChart = () => {
     
     //create chart if there is no any
     chart = document.getElementById('chart');
@@ -192,8 +187,7 @@ function addToChart(){
     document.getElementById('chart_table').appendChild(tr);
 }
 
-function get_chart(){
-    var chart = document.getElementById('chart_table');
+const get_chart = () => {
     var data_cells = document.getElementById('chart_table').rows[0].cells.length;
     var data_rows = document.getElementById('chart_table').rows.length;
     

@@ -58,23 +58,18 @@
                 <input id="num_products" class="form-control" type="number" min="1" max="5" placeholder="Enter number of products" required>
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please fill out this field with valid number.</div>
-                    </div>
-
+            </div>
             </form>
             <br>
-
         </div>
         
         <div id="chart" class="container">
         </div>
         
-    
-        
-        
         <div id="buttons" class="container">
-            <button class="btn btn-dark" type="button" onclick="use_scraper()">Search</button>
-            <button class="btn btn-dark" type="button" onclick="addToChart()">Add to Chart</button>
-            <button class="btn btn-dark" type="button" onclick="dropTable()">dropTable</button>
+            <button class="btn btn-dark" id="search-btn" type="button">Search</button>
+            <button class="btn btn-dark" id="addToChart-btn" type="button">Add to Chart</button>
+            <button class="btn btn-dark" id="dropTable-btn" type="button">Clear</button>
         </div>
         <br>
         
@@ -83,16 +78,14 @@
     </div>
    
    
-   <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+   <button id="scrollButton" title="Go to top">Top</button>
 
-   
-    <!-- Loading jQuery from npm module, so error doesn't show-->
-    <script> window.jQuery = window.$ = require('jquery'); </script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
     <script src="linkers/run-py-shell.js"></script>
     <script src="linkers/present-data.js"></script>
+    <script src="linkers/event-listeners.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
 
 </body>

@@ -1,7 +1,7 @@
 let {PythonShell} = require('python-shell')
 var path = require("path")
 
-function use_scraper() {
+const use_scraper = () => {
     var num_of_item_parameters = document.getElementById('chart_table').rows[0].cells.length;
     var num_of_items = document.getElementById('chart_table').rows.length;
 
