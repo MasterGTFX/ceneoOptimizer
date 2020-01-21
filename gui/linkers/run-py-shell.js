@@ -14,6 +14,5 @@ const use_scraper = () => {
     
     pyshell.on('message', function(message) {
                show_results(message);
-               })
-    document.getElementById("product_name").value = "";
+               });
 }
