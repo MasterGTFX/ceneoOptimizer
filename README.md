@@ -5,13 +5,6 @@ Ceneo.pl optimizer. It scrapes data from shop and then make best sets with produ
 - Python (Beautiful Soup, Requests, Regex, Logging)  
 - NodeJS
 
-## Table of contents
-* [Technologies](#technologies)
-* [Getting Started](#getting-started)
-* [Requirements](#requirements)
-* [Author](#author)
-* [License](#license)
-
 ## Getting Started
 Start gui with npm start in gui directory.
 
