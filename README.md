@@ -1,6 +1,9 @@
 # ceneoOptimizer
 Ceneo.pl optimizer. It scrapes data from shop and then make best sets with products found. 
 
+# Example
+![example 1](example1.png?raw=true "Example")
+![example 2](example2.png?raw=true "Example")
 ## Technologies
 - Python (Beautiful Soup, Requests, Regex, Logging)  
 - NodeJS
