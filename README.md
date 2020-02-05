@@ -1,32 +1,30 @@
 # ceneoOptimizer
+Ceneo.pl optimizer. It scrapes data from shop and then make best sets with products found. 
 
-Requirements:
-https://nodejs.org/
-https://electronjs.org
-https://www.npmjs.com/package/python-shell
+## Technologies
+Scraper is created with:
+* Python (Beautiful Soup, Requests, Regex, Logging)
+GUI:
+* NodeJS
 
+## Table of contents
+* [Technologies](#technologies)
+* [Getting Started](#getting-started)
+* [Requirements](#requirements)
+* [Author](#author)
+* [License](#license)
 
+## Getting Started
+Start gui with npm start in gui directory.
 
-npm insstall - makes 3 files. package-lock, package, node_modules
+## Requirements:
+* https://nodejs.org/
+* https://electronjs.org
+* https://www.npmjs.com/package/python-shell
 
-# Documentation
+## Author
+* **Dominik Baran** - [MasterGTFX](https://github.com/MasterGTFX)     -> Scraper
+* **Jakub Zuber** - [zuberol](https://github.com/zuberol)             -> GUI
 
-###### Scraper: 
-*engine/scraper.py*  
-It's using *offer_scraper.py* for getting data from product page (product table elements) and *regex_pattern* for searching data. Methods and classes are documented in python files (*docstrings*).  
-  
-###### GUI:   
-
-Function get_chart( ) - it is responsible for retrieving data from chart, where user types data.  
-Function addToChart () - creates chart table and fills it with data typed by user in a form.  
-Function dropTable() - drops table, so user can start searching again.  
-Function topFunction() - used to scroll up the page.  
-Function showScrollButton () - shows red button on the screen whenever user scrolls page. This  
-button clicked scrolls up the page.  
-Function console_out () - console.log() wrapper.  
-Function use_scrapper() - it is a wrapper for python-shell instance which runs scrapper.py script.  
-When ‚‚message’’ event occurs show_results() callback is fired, which shows data on the screen.  
-
-
-
-
+## License
+This project is free to use or modify.
