@@ -3,7 +3,7 @@ Ceneo.pl optimizer. It scrapes data from shop and then make best sets with produ
 
 ## Technologies
 Scraper is created with:
-* Python (Beautiful Soup, Requests, Regex, Logging)
+* Python (Beautiful Soup, Requests, Regex, Logging)  
 GUI:  
 * NodeJS
 
