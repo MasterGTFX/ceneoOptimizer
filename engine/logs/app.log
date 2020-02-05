@@ -1,43 +1,24 @@
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:32,583 Starting new HTTPS connection (1): www.ceneo.pl:443
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:32,729 https://www.ceneo.pl:443 "GET /szukaj-iphone%20X;m500.0;n999999 HTTP/1.1" 301 None
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:32,768 https://www.ceneo.pl:443 "GET /;szukaj-iphone+x;m500;n999999.htm HTTP/1.1" 301 None
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:33,146 https://www.ceneo.pl:443 "GET /Smartfony;szukaj-iphone+x;m500;n999999.htm HTTP/1.1" 200 None
-__main__ - INFO - 2019-12-07 16:55:33,468 Scraper for [iphone X ] initialized
-__main__ - INFO - 2019-12-07 16:55:33,468 Getting all offers..
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:33,471 Starting new HTTPS connection (1): www.ceneo.pl:443
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:33,738 https://www.ceneo.pl:443 "GET /55424288;0284-0 HTTP/1.1" 301 None
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:33,887 https://www.ceneo.pl:443 "GET /55424288;0284-0.htm HTTP/1.1" 200 None
-offer_scraper - INFO - 2019-12-07 16:55:34,444 4 offers found at Apple iPhone X 64GB Gwiezdna szarość - Ceny i opinie na Ceneo.pl
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:34,448 Starting new HTTPS connection (1): www.ceneo.pl:443
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:34,594 https://www.ceneo.pl:443 "GET /55424289;0284-0 HTTP/1.1" 301 None
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:34,887 https://www.ceneo.pl:443 "GET /55424289;0284-0.htm HTTP/1.1" 200 None
-offer_scraper - INFO - 2019-12-07 16:55:35,362 2 offers found at Apple iPhone X 64GB Srebrny - Ceny i opinie na Ceneo.pl
-__main__ - INFO - 2019-12-07 16:55:35,362 Max offers number reached
-__main__ - INFO - 2019-12-07 16:55:35,370 5 offers collected that meets requirements
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:35,374 Starting new HTTPS connection (1): www.ceneo.pl:443
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:36,090 https://www.ceneo.pl:443 "GET /szukaj-nokia;m500.0;n999999 HTTP/1.1" 301 None
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:36,266 https://www.ceneo.pl:443 "GET /;szukaj-nokia;m500;n999999.htm HTTP/1.1" 301 None
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:36,623 https://www.ceneo.pl:443 "GET /Smartfony;szukaj-nokia;m500;n999999.htm HTTP/1.1" 200 None
-__main__ - INFO - 2019-12-07 16:55:37,219 Scraper for [nokia ] initialized
-__main__ - INFO - 2019-12-07 16:55:37,219 Getting all offers..
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:37,223 Starting new HTTPS connection (1): www.ceneo.pl:443
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:37,964 https://www.ceneo.pl:443 "GET /77958623;0284-0 HTTP/1.1" 301 None
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:38,337 https://www.ceneo.pl:443 "GET /77958623;0284-0.htm HTTP/1.1" 200 None
-offer_scraper - INFO - 2019-12-07 16:55:38,756 2 offers found at Nokia 9 PureView Granatowy - Ceny i opinie na Ceneo.pl
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:38,759 Starting new HTTPS connection (1): www.ceneo.pl:443
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:38,903 https://www.ceneo.pl:443 "GET /86343417;0284-0 HTTP/1.1" 301 None
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:39,281 https://www.ceneo.pl:443 "GET /86343417;0284-0.htm HTTP/1.1" 200 None
-offer_scraper - INFO - 2019-12-07 16:55:39,660 11 offers found at Nokia 7.2 6/128GB Dual SIM Czarny - Ceny i opinie na Ceneo.pl
-__main__ - INFO - 2019-12-07 16:55:39,660 Max offers number reached
-__main__ - INFO - 2019-12-07 16:55:39,668 5 offers collected that meets requirements
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:39,672 Starting new HTTPS connection (1): www.ceneo.pl:443
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:39,817 https://www.ceneo.pl:443 "GET /szukaj-wiadro;m5.0;n999999 HTTP/1.1" 301 None
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:40,043 https://www.ceneo.pl:443 "GET /;szukaj-wiadro;m5;n999999.htm HTTP/1.1" 200 None
-__main__ - INFO - 2019-12-07 16:55:40,234 Scraper for [wiadro ] initialized
-__main__ - INFO - 2019-12-07 16:55:40,234 Getting all offers..
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:40,238 Starting new HTTPS connection (1): www.ceneo.pl:443
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:40,478 https://www.ceneo.pl:443 "GET /67719449;0284-0 HTTP/1.1" 301 None
-urllib3.connectionpool - DEBUG - 2019-12-07 16:55:40,705 https://www.ceneo.pl:443 "GET /67719449;0284-0.htm HTTP/1.1" 200 None
-offer_scraper - INFO - 2019-12-07 16:55:41,043 8 offers found at Vileda Ultramax Box Mop+ Wiadro + Wyciskacz (726) - Opinie i atrakcyjne ceny na Ceneo.pl
-__main__ - INFO - 2019-12-07 16:55:41,043 Max offers number reached
-__main__ - INFO - 2019-12-07 16:55:41,051 5 offers collected that meets requirements
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:11,636 Starting new HTTPS connection (1): www.ceneo.pl:443
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:11,714 https://www.ceneo.pl:443 "GET /szukaj-xbox%20one;m1000.0;n999999 HTTP/1.1" 301 None
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:11,784 https://www.ceneo.pl:443 "GET /;szukaj-xbox+one;m1000;n999999.htm HTTP/1.1" 301 None
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:12,027 https://www.ceneo.pl:443 "GET /Konsole_do_gier;szukaj-xbox+one;m1000;n999999.htm HTTP/1.1" 200 None
+__main__ - INFO - 2020-02-05 20:28:12,189 Scraper for [xbox one ] initialized
+__main__ - INFO - 2020-02-05 20:28:12,189 Getting all offers..
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:12,192 Starting new HTTPS connection (1): www.ceneo.pl:443
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:12,262 https://www.ceneo.pl:443 "GET /44987720;0284-0 HTTP/1.1" 301 None
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:12,447 https://www.ceneo.pl:443 "GET /44987720;0284-0.htm HTTP/1.1" 200 None
+offer_scraper - INFO - 2020-02-05 20:28:12,748 12 offers found at Microsoft Xbox One X 1TB Czarny - Ceny i opinie - Ceneo.pl
+__main__ - INFO - 2020-02-05 20:28:12,748 Max offers number reached
+__main__ - INFO - 2020-02-05 20:28:12,749 1 offers collected that meets requirements
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:12,751 Starting new HTTPS connection (1): www.ceneo.pl:443
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:12,835 https://www.ceneo.pl:443 "GET /szukaj-ps%204;m1000.0;n999999 HTTP/1.1" 301 None
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:12,906 https://www.ceneo.pl:443 "GET /;szukaj-ps+4;m1000;n999999.htm HTTP/1.1" 301 None
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:13,119 https://www.ceneo.pl:443 "GET /Konsole_do_gier;szukaj-ps+4;m1000;n999999.htm HTTP/1.1" 200 None
+__main__ - INFO - 2020-02-05 20:28:13,326 Scraper for [ps 4 ] initialized
+__main__ - INFO - 2020-02-05 20:28:13,326 Getting all offers..
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:13,328 Starting new HTTPS connection (1): www.ceneo.pl:443
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:13,400 https://www.ceneo.pl:443 "GET /45002653;0284-0 HTTP/1.1" 301 None
+urllib3.connectionpool - DEBUG - 2020-02-05 20:28:13,578 https://www.ceneo.pl:443 "GET /45002653;0284-0.htm HTTP/1.1" 200 None
+offer_scraper - INFO - 2020-02-05 20:28:13,923 12 offers found at Sony PlayStation 4 Pro 1TB Czarny - Ceny i opinie - Ceneo.pl
+__main__ - INFO - 2020-02-05 20:28:13,923 Max offers number reached
+__main__ - INFO - 2020-02-05 20:28:13,925 1 offers collected that meets requirements
